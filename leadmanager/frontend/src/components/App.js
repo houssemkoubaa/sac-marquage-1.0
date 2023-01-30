@@ -15,7 +15,7 @@ import {
 import { Provider } from "react-redux";
 import store from "../store";
 import { Login } from "./accounts/Login";
-import Register from "./accounts/Login";
+import Register from "./accounts/Register";
 // connect redux to react is through the provider , we need to wrap around it everything
 
 import PrivateRoute from "./commun/PrivateRoute";
