@@ -8,14 +8,14 @@ from django.contrib.auth import authenticate
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        field = ('id', 'username', 'email')
+        fields = ('id', 'username', 'email')
 # REgister serializer
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        field = ('id', 'username', 'email', 'password')
+        fields = ('id', 'username', 'email', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -23,3 +23,14 @@ class RegisterSerializer(serializers.ModelSerializer):
             validated_data['username'], validated_data['email'], validated_data['password'])
         return user
 # Login serializer
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("incorrect Credentials")
