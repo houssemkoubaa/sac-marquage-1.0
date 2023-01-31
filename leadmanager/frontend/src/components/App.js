@@ -14,6 +14,8 @@ import {
 } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "../store";
+import { loadUser } from "../actions/auth";
+
 import { Login } from "./accounts/Login";
 import Register from "./accounts/Register";
 // connect redux to react is through the provider , we need to wrap around it everything
@@ -27,6 +29,9 @@ const alertOptions = {
 };
 
 class App extends Component {
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
   render() {
     return (
       <Provider store={store}>
